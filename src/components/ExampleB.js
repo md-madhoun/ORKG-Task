@@ -46,7 +46,9 @@ class ExampleB extends Component {
                         })}
                     </div>
                     <div>Paper Data:</div>
-                    <div>Paper doi: {doiValue}</div>
+
+                    <div>Paper doi: <a href={'https://doi.crossref.org/servlet/query?pid=email@address.com&id=' + doiValue}   target="blank">{doiValue}</a></div>
+                    <div>Paper doi: <a href={'https://doi.org/' + doiValue}   target="blank">{doiValue}</a></div>
                 </div>
             );
         }

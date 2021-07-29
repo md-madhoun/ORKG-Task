@@ -127,23 +127,55 @@ class ExampleA extends Component {
         const activeProperties = dataFrame.properties.filter(property => property.active === true);
         return activeProperties.map(property => {
             const dataValues = dataFrame.data[property.id][rowId];
-            return (
-                <td
-                    key={'td_id' + rowId + '_' + property.id}
-                    style={{
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        borderRight: '1px solid black',
-                        padding: '3px',
-                        maxWidth: '200px'
-                    }}
-                >
-                    {dataValues.map(val => {
-                        return val.label + ' ';
-                    })}
-                </td>
-            );
+           
+            if(property.id=="SAME_AS") {
+                return (
+                    <td
+                        key={'td_id' + rowId + '_' + property.id}
+                        style={{
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            borderRight: '1px solid black',
+                            padding: '3px',
+                            maxWidth: '200px',
+                                   
+                        }}                   
+                       
+                    >  
+                    
+                    <a href={dataValues.map(val => {
+                        return  val.label + '';
+                    })}>         
+                       {dataValues.map(val => {
+                            return  val.label + '';// val.label
+                        })}
+                         </a>
+                        
+                    </td>
+                );
+                    }
+                    else
+                    return (
+                        <td
+                            key={'td_id' + rowId + '_' + property.id}
+                            style={{
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                borderRight: '1px solid black',
+                                padding: '3px',
+                                maxWidth: '200px',
+                                       
+                            }}                   
+                           
+                        >         
+                           {dataValues.map(val => {
+                                return  val.label + '';
+                            })}
+                             
+                        </td>
+                    );
         });
     };
 
