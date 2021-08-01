@@ -8,6 +8,8 @@ import { Container } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ExampleA from 'components/ExampleA';
 import ExampleB from 'components/ExampleB';
+import ExampleE from 'components/ExampleE';
+
 
 class App extends Component {
     constructor(props) {
@@ -16,6 +18,7 @@ class App extends Component {
     }
 
     render() {
+        
         return (
             <>
                 <header>
@@ -54,9 +57,10 @@ class App extends Component {
                             height: 'calc(100vh - 40px)',
                             overflow: 'auto'
                         }}
-                    >
-                        <ExampleA />
-                        <ExampleB />
+                    >   
+                       <ExampleE />
+                       <ExampleB/>
+                       ....
                     </Container>
                 </Container>
             </>

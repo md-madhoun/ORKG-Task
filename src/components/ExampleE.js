@@ -3,14 +3,23 @@ import './visWidgetConfig.css';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { getComparisonById } from 'network/networkRequests';
+import SearchApp from 'components/SearchApp';
 
 
-class ExampleA extends Component {
+class ExampleD extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: true,
-            requestedData: null
+            requestedData: null,
+            employeeData: [
+                { name: "Test", title: "Test", salary: 100000 },
+                { name: "Test", title: "Test", salary: 200000 },
+            ],
+            var1: null,
+            var2: null,
+            currentRow: -1,
+            counter: 0,
         };
     }
 
@@ -93,6 +102,7 @@ class ExampleA extends Component {
                 </thead>
                 <tbody>
                     {Object.keys(dataFrame.data).map((data, id) => {
+                        
                         return (
                             <tr key={'tr_id' + id} style={{ border: '1px solid black', borderTop: 'none' }}>
                                 <td
@@ -130,7 +140,36 @@ class ExampleA extends Component {
         return activeProperties.map(property => {
             const dataValues = dataFrame.data[property.id][rowId];
            
+
+            /*this.state.employeeData.push({ name: dataValues.map(val => {
+                return  val.label + '';// val.label
+            }), title: property.id, salary:  rowId})*/
+            
+
+            
+            if(this.state.currentRow!=rowId)
+            {
+                this.state.currentRow=rowId;
+                this.state.var1=dataValues[0].label
+                this.state.counter++;
+            }
+            else if(this.state.counter==1)
+            {
+                this.state.var2=dataValues[0].label
+                this.state.counter++;
+            }
+            else if(this.state.counter==2)
+            {
+                this.state.employeeData.push({ name: this.state.var1, title: this.state.var2, salary: dataValues[0].label })
+                
+                this.state.counter=0;
+            }
+            
+
+
+
             if(property.id=="SAME_AS") {
+
                 return (
                     <td
                         key={'td_id' + rowId + '_' + property.id}
@@ -157,7 +196,7 @@ class ExampleA extends Component {
                     </td>
                 );
                     }
-                    else
+            else
                     return (
                         <td
                             key={'td_id' + rowId + '_' + property.id}
@@ -183,8 +222,14 @@ class ExampleA extends Component {
 
     /** Component Rendering Function **/
     render() {
+        //let cc=0
+        //this.state.employeeData.push({ name: "https://MDA,dsda", title: "developer", salary: 66666 })
+        
+
         return (
             <div>
+                
+                
                 <div className={'headerStyle'}>
                     Example A: Comparisons{' '}
                     <a style={{ color: '#e86161' }} href="https://www.orkg.org/orkg/comparison/R44930">
@@ -202,9 +247,10 @@ class ExampleA extends Component {
                     )}
                     {!this.state.loading && this.renderData()}
                 </div>
+                <SearchApp data={this.state.employeeData} />     
             </div>
         );
     }
 }
 
-export default ExampleA;
+export default ExampleD;
